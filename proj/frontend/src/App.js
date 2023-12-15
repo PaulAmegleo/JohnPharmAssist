@@ -11,6 +11,8 @@ import SignUp from "./components/pages/SignUp";
 import Aboutus from "./components/pages/Aboutus";
 import ContactUs from "./components/pages/Contactus";
 import Ikaw from "./components/ikaw";
+import NavBarAdmin from "./components/NavBarAdmin";
+
 
 
 
@@ -22,6 +24,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Navbar />
+        {/* <NavBarAdmin /> */}
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route exact path="/aboutus" element={<Aboutus />} />

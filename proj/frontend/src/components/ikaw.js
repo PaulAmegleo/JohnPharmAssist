@@ -5,14 +5,14 @@ import "./ikaw.css";
 import Medicineitem from "./Medicineitem";
 
 const Ikaw = () => {
-  const [medicines, setMedicines] = useState([]);
+  const [medicines, setMedicine] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchMeds = async () => {
       try {
         const response = await axios.get("http://127.0.0.1:8000/app/meds/");
-        setMedicines(response.data);
+        setMedicine(response.data);
       } catch (error) {
         console.error("Error fetching medicines:", error);
       }
@@ -20,21 +20,19 @@ const Ikaw = () => {
 
     fetchMeds();
   }, []);
-
+  
   const handleDelete = async (medId) => {
     try {
-      // Send a DELETE request to your backend API
-      await axios.delete(`http://127.0.0.1:8000/app/meds/${medId}`);
-
-      // Update the state to reflect the deletion
-      setMedicines((prevMedicines) =>
-        prevMedicines.filter((medicine) => medicine.medId !== medId)
-      );
+      await axios.delete(`http://127.0.0.1:8000/app/meds/${medId}/delete`);
+      console.log(`Medicine with ID ${medId} deleted successfully from the backend`);
+  
+      // Redirect back to the medicine list after deletion
+      navigate("/medlist"); // Replace with your medicine list route
     } catch (error) {
-      console.error("Error deleting medicine:", error);
+      console.error(`Error deleting medicine with ID ${medId}:`, error);
     }
   };
-
+  
   const handleEdit = (medId) => {
     // Redirect to the edit form page, passing the medicine ID as a parameter
     navigate(`/edit/${medId}`);
@@ -46,20 +44,21 @@ const Ikaw = () => {
       <div className="cards__container">
         <div className="cards__wrapper">
           <ul className="cards__items">
-            {medicines.map((medicine) => (
-              <li key={medicine.medId}>
-                <Medicineitem
-                  src={medicine.image}
-                  text={medicine.medName}
-                  label="Medicine"
-                  path={`/meds/${medicine.medId}`}
-                />
-                <button onClick={() => handleEdit(medicine.medId)}>Edit</button>
-                <button onClick={() => handleDelete(medicine.medId)}>
-                  Delete
-                </button>
-              </li>
-            ))}
+              {medicines.map((medicine) => (
+                <li key={medicine.medId}>
+                  <Medicineitem
+                    src={medicine.image}
+                    text={medicine.medName}
+                    label="Medicine"
+                    path={`/meds/${medicine.medId}`}
+                  />
+                  <div>
+                    <button onClick={() => handleEdit(medicine.medId)}>Edit</button>
+                    <button onClick={() => handleDelete(medicine.medId)}>Delete</button>
+                  </div>
+                </li>
+              ))}
+              
           </ul>
         </div>
       </div>

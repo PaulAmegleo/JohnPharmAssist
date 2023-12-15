@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams  } from "react-router-dom";
 import axios from "axios";
 import "./MedsDetails.css"; // Import a CSS file for styling
 
 const MedsDetails = () => {
-  const { id } = useParams();
+  const { id: medId } = useParams();
   const [medicine, setMedicine] = useState(null);
+  const navigate = useNavigate(); // Add this line to use the navigate function
+
+
 
   useEffect(() => {
     const fetchMedicineDetails = async () => {
       try {
         const response = await axios.get(
-          `http://127.0.0.1:8000/app/meds/${id}/`
+          `http://127.0.0.1:8000/app/meds/${medId}/`
         );
         setMedicine(response.data);
       } catch (error) {
@@ -20,7 +23,19 @@ const MedsDetails = () => {
     };
 
     fetchMedicineDetails();
-  }, [id]);
+  }, [medId]);
+
+  // const handleDelete = async (medId) => {
+  //   try {
+  //     await axios.delete(`http://127.0.0.1:8000/app/meds/${medId}/delete`);
+  //     console.log(`Medicine with ID ${medId} deleted successfully from the backend`);
+  
+  //     // Redirect back to the medicine list after deletion
+  //     navigate("/medlist"); // Replace with your medicine list route
+  //   } catch (error) {
+  //     console.error(`Error deleting medicine with ID ${medId}:`, error);
+  //   }
+  // };
 
   return (
     <div className="meds-details-container">
@@ -70,6 +85,9 @@ const MedsDetails = () => {
             <strong>Availability:</strong>{" "}
             {medicine.availability ? "Available" : "Not Available"}
           </p>
+          <div>
+          {/* <button onClick={() => handleDelete(medId)}>Delete</button> */}
+                  </div>
         </div>
       ) : (
         <p>Loading...</p>

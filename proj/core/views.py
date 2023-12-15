@@ -3,6 +3,7 @@ from .models import Meds
 from .serializers import MedsSerializer
 from rest_framework.generics import ListCreateAPIView
 from rest_framework.response import Response
+from rest_framework.generics import RetrieveUpdateDestroyAPIView
 from rest_framework import status
 
 from django.shortcuts import render
@@ -24,6 +25,15 @@ class MedsList(ListCreateAPIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class MedsDetail(generics.RetrieveUpdateDestroyAPIView):
+class MedsDetail(RetrieveUpdateDestroyAPIView):
     queryset = Meds.objects.all()
     serializer_class = MedsSerializer
+
+class MedsDelete(RetrieveUpdateDestroyAPIView):
+    queryset = Meds.objects.all()
+    serializer_class = MedsSerializer
+
+    def delete(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
