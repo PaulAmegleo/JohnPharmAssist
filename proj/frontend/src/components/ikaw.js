@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "./ikaw.css";
 import Medicineitem from "./Medicineitem";
+import Navbar from "./NavBarAdmin";
 
 const Ikaw = () => {
   const [medicines, setMedicine] = useState([]);
@@ -39,6 +40,8 @@ const Ikaw = () => {
   };
 
   return (
+    <div>    <Navbar/>
+
     <div className="cardsmed">
       <h1>MEDICINE INFORMATION</h1>
       <div className="cards__container">
@@ -65,6 +68,7 @@ const Ikaw = () => {
       <Link to="/add" className="link-button">
         Add New Medicine
       </Link>
+    </div>
     </div>
   );
 };

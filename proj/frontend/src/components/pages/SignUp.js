@@ -22,7 +22,7 @@ function SignUp() {
 
     if (user) {
       // After successful login, navigate to the 'products' route
-      navigate("/ekaw");
+      navigate("/Admin");
     } else {
       // Handle incorrect login
       alert("Incorrect username or password");
