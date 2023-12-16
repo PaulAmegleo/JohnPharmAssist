@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams  } from "react-router-dom";
+import {  useParams  } from "react-router-dom";
 import axios from "axios";
 import "./MedsDetails.css"; // Import a CSS file for styling
 
 const MedsDetails = () => {
   const { id: medId } = useParams();
   const [medicine, setMedicine] = useState(null);
-  const navigate = useNavigate(); // Add this line to use the navigate function
 
 
 

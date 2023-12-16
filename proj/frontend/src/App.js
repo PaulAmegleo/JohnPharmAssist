@@ -12,6 +12,7 @@ import Aboutus from "./components/pages/Aboutus";
 import ContactUs from "./components/pages/Contactus";
 import Ikaw from "./components/ikaw";
 import NavBarAdmin from "./components/NavBarAdmin";
+import Edit from "./components/Edit";
 
 
 
@@ -35,6 +36,8 @@ function App() {
           <Route path="/add" element={<MedsForm />} />
           <Route exact path="/contactus" element={<ContactUs />} />
           <Route exact path="/ekaw" element={<Ikaw/>}/>
+          <Route exact path="/edit" element={<Edit/>}/>
+      
           
          
         </Routes>

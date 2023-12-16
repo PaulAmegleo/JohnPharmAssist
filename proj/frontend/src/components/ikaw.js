@@ -35,7 +35,7 @@ const Ikaw = () => {
   
   const handleEdit = (medId) => {
     // Redirect to the edit form page, passing the medicine ID as a parameter
-    navigate(`/edit/${medId}`);
+    navigate("/edit");
   };
 
   return (
