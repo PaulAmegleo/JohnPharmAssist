@@ -15,7 +15,10 @@ import AboutusAdmin from "./components/pages/AboutusAdmin";
 import NavBarAdmin from "./components/NavBarAdmin";
 import ContactUsAdmin from "./components/pages/ContactusAdmin";
 import HomeAdmin from "./components/pages/HomeAdmin";
-import Edit from "./components/Edit";
+
+
+
+
 
 function App() {
   return (
@@ -33,15 +36,14 @@ function App() {
           <Route path="/add" element={<MedsForm />} />
           <Route exact path="/contactus" element={<ContactUs />} />
 
-
-
-
-
-          <Route exact path="/Admin" element={<Ikaw />} />
+          <Route exact path="/Admin" element={<Ikaw/>}/>
           <Route exact path="/aboutusAdmin" element={<AboutusAdmin />} />
           <Route exact path="/contactusAdmin" element={<ContactUsAdmin />} />
           <Route exact path="/homeAdmin" element={<HomeAdmin />} />
-          <Route exact path="/edit" element={<Edit/>}/>
+
+
+          
+         
         </Routes>
       </BrowserRouter>
     </div>
