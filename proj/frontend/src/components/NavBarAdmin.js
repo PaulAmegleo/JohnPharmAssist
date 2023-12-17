@@ -71,7 +71,7 @@ function Navbar() {
 
             <li className="nav-item">
               <Button to="/sign-up" buttonStyle="btn--outline">
-                Log-in <i className="fas fa-arrow-right" />
+                Admin <i className="" />
               </Button>
             </li>
           </ul>

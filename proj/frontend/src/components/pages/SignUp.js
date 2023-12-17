@@ -9,6 +9,7 @@ function SignUp() {
   const users = [
     { username: "ivahnn", password: "ivahnn123" },
     { username: "user2", password: "password2" },
+    { username: "Admin", password: "admin123" },
     // Add more users as needed
   ];
 

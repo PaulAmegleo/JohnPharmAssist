@@ -13,7 +13,7 @@ const Ikaw = () => {
     const fetchMeds = async () => {
       try {
         const response = await axios.get("http://127.0.0.1:8000/app/meds/");
-        setMedicine(response.data);
+         setMedicine(response.data.reverse());
       } catch (error) {
         console.error("Error fetching medicines:", error);
       }
@@ -28,27 +28,26 @@ const Ikaw = () => {
       console.log(`Medicine with ID ${medId} deleted successfully from the backend`);
   
       // Redirect back to the medicine list after deletion
-      navigate("/medlist"); // Replace with your medicine list route
+      navigate("/Admin"); // Replace with your medicine list route
     } catch (error) {
       console.error(`Error deleting medicine with ID ${medId}:`, error);
     }
   };
   
   const handleEdit = (medId) => {
-    // Redirect to the edit form page, passing the medicine ID as a parameter
-    navigate(`/edit/${medId}`);
-  };
+    navigate(`/Edit`);
+  };  
 
   return (
-    <div>    <Navbar/>
+    <div>  <Navbar/>
 
     <div className="cardsmed">
       <h1>MEDICINE INFORMATION</h1>
-      <div className="cards__container">
-        <div className="cards__wrapper">
-          <ul className="cards__items">
+      <div className="cards__containerprod">
+        <div className="cards__wrapperprod">
+          <ul className="cards__itemsprod">
               {medicines.map((medicine) => (
-                <li key={medicine.medId}>
+                <div key={medicine.medId}>
                   <Medicineitem
                     src={medicine.image}
                     text={medicine.medName}
@@ -59,7 +58,7 @@ const Ikaw = () => {
                     <button onClick={() => handleEdit(medicine.medId)}>Edit</button>
                     <button onClick={() => handleDelete(medicine.medId)}>Delete</button>
                   </div>
-                </li>
+                </div>
               ))}
               
           </ul>

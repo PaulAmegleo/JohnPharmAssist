@@ -1,60 +1,49 @@
-import React, { useState } from "react";
-import axios from "axios";
-import "./MedsForm.css"; // Import a CSS file for styling
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
-const MedsForm = () => {
-  const [medicineData, setMedicineData] = useState({
-    medId: "",
-    medName: "",
-    genericName: "",
-    dosageForm: "",
-    manufacturer: "",
-    ageGroup: "",
-    formulation: "",
-    netContent: "",
-    indication: "",
-    sideEffects: "",
-    availability: true,
-    image: "",
-  });
+const Edit = () => {
+  const { medId } = useParams(); // Get the medId from URL params
+  const [medicineData, setMedicineData] = useState({});
+
+  useEffect(() => {
+    const fetchMedicine = async () => {
+      if (medId) { // Ensure medId is defined before making the request
+        try {
+          const response = await axios.get(`http://127.0.0.1:8000/app/meds/${medId}`);
+          setMedicineData(response.data);
+        } catch (error) {
+          console.error("Error fetching medicine details:", error);
+        }
+      }
+    };
+
+    fetchMedicine();
+  }, [medId]);
+
 
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
     const newValue = type === "checkbox" ? checked : value;
-
     setMedicineData({ ...medicineData, [name]: newValue });
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await axios.post("http://127.0.0.1:8000/app/meds/", medicineData);
-      alert("Medicine added successfully!");
-      setMedicineData({
-        medId: "",
-        medName: "",
-        genericName: "",
-        dosageForm: "",
-        manufacturer: "",
-        ageGroup: "",
-        formulation: "",
-        netContent: "",
-        indication: "",
-        sideEffects: "",
-        availability: true,
-        image: "",
-      });
+      await axios.patch(`http://127.0.0.1:8000/app/meds/${medId}`, medicineData);
+      alert("Medicine updated successfully!");
     } catch (error) {
-      console.error("Error adding medicine:", error);
-      alert("Error adding medicine. Please try again.");
+      console.error("Error updating medicine:", error);
+      alert("Error updating medicine. Please try again.");
     }
   };
 
   return (
-    <div className="meds-form-container">
-      <h2>Add Medicine</h2>
+    <div className="meds-form-container1">
+      <h2>Edit Medicine</h2>
       <form onSubmit={handleSubmit}>
-        <div className="form-group">
+        <div className="form-group1">
           <label>Image URL:</label>
           <input
             type="text"
@@ -64,7 +53,7 @@ const MedsForm = () => {
           />
         </div>
 
-        <div className="form-group">
+        <div className="form-group1">
           <label>Medicine Name:</label>
           <input
             type="text"
@@ -74,7 +63,7 @@ const MedsForm = () => {
           />
         </div>
 
-        <div className="form-group">
+        <div className="form-group1">
           <label>Generic Name:</label>
           <input
             type="text"
@@ -84,11 +73,11 @@ const MedsForm = () => {
           />
         </div>
 
-        <div className="form-group">
+        <div className="form-group1">
           <label>Dosage Form:</label>
           <select
-            name="dosageForm"
-            value={medicineData.dosageForm}
+            name="medType"
+            value={medicineData.medType}
             onChange={handleChange}
           >
             <option value="">Select Dosage Form</option>
@@ -97,7 +86,7 @@ const MedsForm = () => {
             <option value="Liquid">Liquid</option>
           </select>
         </div>
-        <div className="form-group">
+        <div className="form-group1">
           <label>Manufacturer:</label>
           <input
             type="text"
@@ -107,7 +96,17 @@ const MedsForm = () => {
           />
         </div>
 
-        <div className="form-group">
+        <div className="form-group1">
+          <label>Dosage:</label>
+          <input
+            type="text"
+            name="dosage"
+            value={medicineData.dosage}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="form-group1">
           <label>Age Group:</label>
           <select
             name="ageGroup"
@@ -121,7 +120,7 @@ const MedsForm = () => {
           </select>
         </div>
 
-        <div className="form-group">
+        <div className="form-group1">
           <label>Formulation:</label>
           <input
             type="text"
@@ -131,7 +130,7 @@ const MedsForm = () => {
           />
         </div>
 
-        <div className="form-group">
+        <div className="form-group1">
           <label>Net Content:</label>
           <input
             type="text"
@@ -141,7 +140,7 @@ const MedsForm = () => {
           />
         </div>
 
-        <div className="form-group">
+        <div className="form-group1">
           <label>Indication:</label>
           <input
             type="text"
@@ -151,7 +150,7 @@ const MedsForm = () => {
           />
         </div>
 
-        <div className="form-group">
+        <div className="form-group1">
           <label>Side Effects:</label>
           <input
             type="text"
@@ -171,10 +170,10 @@ const MedsForm = () => {
           />
         </div>
 
-        <button type="submit">Add Medicine</button>
+        <button type="submit">Update Medicine</button>
       </form>
     </div>
   );
 };
 
-export default MedsForm;
+export default Edit;

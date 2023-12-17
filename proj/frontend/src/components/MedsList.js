@@ -10,7 +10,7 @@ const MedsList = () => {
     const fetchMeds = async () => {
       try {
         const response = await axios.get("http://127.0.0.1:8000/app/meds/");
-        setMedicines(response.data);
+        setMedicines(response.data.reverse()); // Reverse the array before setting it
       } catch (error) {
         console.error("Error fetching medicines:", error);
       }
@@ -22,25 +22,22 @@ const MedsList = () => {
   return (
     <div className="cardsmed">
       <h1>MEDICINE INFORMATION</h1>
-      <div className="cards__container">
-        <div className="cards__wrapper">
-          <ul className="cards__items">
+      <div className="cards__containerprod">
+        <div className="cards__wrapperprod">
+          <div className="cards__itemsprod">
             {medicines.map((medicine) => (
-              <li key={medicine.medId}>
+              <div key={medicine.medId}>
                 <Medicineitem
                   src={medicine.image} // Replace 'src' with the image field in your model
                   text={medicine.medName} // Replace 'text' with the name field in your model
                   label="Medicine" // Label or any specific information
                   path={`/meds/${medicine.medId}`} // Path based on the ID
                 />
-              </li>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
       </div>
-
-     
-            
     </div>
   );
 };
